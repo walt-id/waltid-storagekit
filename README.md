@@ -1,6 +1,6 @@
 # Confidential Storage
 
-The **Confidential Storage** by **walt.id** is a secure data storage solution, allowing you to interface with
+Based on the [DIF specification](https://identity.foundation/confidential-storage/) the **Confidential Storage** by **walt.id** is a secure data storage solution, allowing you to interface with
 **Encrypted Data Vaults** easily.
 
 The system is scoped into:
