@@ -1,0 +1,33 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+out
+
+# Maven
+log/
+target/
+
+# Gradle
+.gradle
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+**/build/
+
+# WaltID SSI-Kit
+keys/
+*.db
+/docs/essif/*
+*.log
+data
+
+edvs
+.stored-edvs
+.stored-documents
+salt
+.session-store
+indexes
+master
+sessions
