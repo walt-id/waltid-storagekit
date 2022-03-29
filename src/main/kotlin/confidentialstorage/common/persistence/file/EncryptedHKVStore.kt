@@ -28,7 +28,12 @@ class EncryptedHKVStore(id: String, private val masterKey: ByteArray) {
     fun loadDocumentUnresolved(path: Path) = passphraseDecrypt(path.readText(), masterKey)
 
     fun storeDocument(path: Path, text: String) =
-        path.resolveFromRoot().also { preconditions() }.writeText(passphraseEncrypt(Payload(text), masterKey))
+        path.resolveFromRoot().also {
+            preconditions()
+            if (it.parent != null && it.parent.notExists()) {
+                it.parent.createDirectories()
+            }
+        }.writeText(passphraseEncrypt(Payload(text), masterKey))
 
     fun deleteDocument(path: Path) = path.resolveFromRoot().deleteIfExists()
 

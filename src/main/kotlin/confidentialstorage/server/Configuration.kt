@@ -35,8 +35,7 @@ data class ServerConfiguration(
         val email: String
     )
 
-    val url
-    get() = "$host:$port"
+    val url by lazy { "$host:$port" }
 }
 
 object Configuration {
