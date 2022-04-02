@@ -43,7 +43,6 @@ class CreateDocumentService(private val clientRemoteService: ClientRemoteService
         chunks: ArrayList<Chunk>,
         content: ByteArray,
         sequence: Int,
-        session: Session,
         fileKey: ByteArray
     ) {
         coroutineScope {
@@ -197,7 +196,7 @@ class CreateDocumentService(private val clientRemoteService: ClientRemoteService
                 // Inline payload
                 JWEEncryption.directEncrypt(Payload(content), fileKey)
             } else {
-                uploadChunks(edvId, chunkSizeMappings, chunks, content, sequence, session, fileKey)
+                uploadChunks(edvId, chunkSizeMappings, chunks, content, sequence, fileKey)
                 // check if chunks are returned         ^^^
 
                 println("All uploads are finished, continuing...")
