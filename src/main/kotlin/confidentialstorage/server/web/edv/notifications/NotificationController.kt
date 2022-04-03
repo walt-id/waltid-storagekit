@@ -7,10 +7,10 @@ import confidentialstorage.common.model.notifications.NotificationWsRequest
 import confidentialstorage.common.utils.JsonUtils.klaxon
 import confidentialstorage.server.Configuration.serverConfiguration
 import confidentialstorage.server.web.edv.EdvService
-import confidentialstorage.server.web.edv.notifications.NotificationManager.EdvId
-import confidentialstorage.server.web.edv.notifications.NotificationManager.NotificationSession
-import confidentialstorage.server.web.edv.notifications.NotificationManager.disconnectClient
-import confidentialstorage.server.web.edv.notifications.NotificationManager.notificationClients
+import confidentialstorage.server.web.edv.notifications.NotificationService.EdvId
+import confidentialstorage.server.web.edv.notifications.NotificationService.NotificationSession
+import confidentialstorage.server.web.edv.notifications.NotificationService.disconnectClient
+import confidentialstorage.server.web.edv.notifications.NotificationService.notificationClients
 import io.javalin.websocket.WsConfig
 import java.util.function.*
 

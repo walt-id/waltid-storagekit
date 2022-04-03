@@ -14,8 +14,8 @@ import confidentialstorage.server.Configuration.serverConfiguration
 import confidentialstorage.server.utils.IdentifierUtils.isValidEdvId
 import confidentialstorage.server.web.document.DocumentService.DocumentCreationResponse
 import confidentialstorage.server.web.edv.EdvService
-import confidentialstorage.server.web.edv.notifications.NotificationManager
-import confidentialstorage.server.web.edv.notifications.NotificationManager.EdvId
+import confidentialstorage.server.web.edv.notifications.NotificationService
+import confidentialstorage.server.web.edv.notifications.NotificationService.EdvId
 import io.javalin.http.Context
 import io.javalin.plugin.openapi.dsl.document
 import io.swagger.v3.oas.models.security.SecurityRequirement
@@ -122,7 +122,7 @@ object DocumentController {
 
         ctx.json(res)
 
-        NotificationManager.broadcastNotifications(
+        NotificationService.broadcastNotifications(
             EdvId(ctx.getEdvId()),
             res.docId,
             req.sequence,
@@ -143,7 +143,7 @@ object DocumentController {
 
         try {
             ctx.result(DocumentService.retrieveDocumentContent(ctx.getEdvId(), ctx.getDocId()))
-            NotificationManager.broadcastNotifications(
+            NotificationService.broadcastNotifications(
                 EdvId(ctx.getEdvId()),
                 ctx.getDocId(),
                 -1,
@@ -175,7 +175,7 @@ object DocumentController {
         DocumentService.updateDocumentContent(ctx.getEdvId(), ctx.getDocId(), req.content, req.sequence)
 
 
-        NotificationManager.broadcastNotifications(
+        NotificationService.broadcastNotifications(
             EdvId(ctx.getEdvId()),
             req.id!!,
             req.sequence,
@@ -205,7 +205,7 @@ object DocumentController {
         ctx.status(if (success) 201 else 404)
 
         if (success) {
-            NotificationManager.broadcastNotifications(
+            NotificationService.broadcastNotifications(
                 EdvId(ctx.getEdvId()),
                 ctx.getDocId(),
                 -1,
@@ -232,7 +232,7 @@ object DocumentController {
 
         ctx.json(DocumentService.searchDocument(req, ctx.getEdvId()))
 
-        /*NotificationManager.broadcastNotifications(
+        /*NotificationService.broadcastNotifications(
             EdvId(ctx.getEdvId()),
             ctx.getDocId(),
             -1,

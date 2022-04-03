@@ -1,10 +1,10 @@
 package confidentialstorage.common.model.notifications
 
 import com.beust.klaxon.TypeFor
-import confidentialstorage.server.web.edv.notifications.NotificationManager
+import confidentialstorage.server.web.edv.notifications.NotificationService
 import kotlinx.serialization.Serializable
 
-@TypeFor(field = "type", adapter = NotificationManager.NotificationRequestTypeAdapter::class)
+@TypeFor(field = "type", adapter = NotificationService.NotificationRequestTypeAdapter::class)
 open class NotificationWsRequest(open val type: String)
 
 data class AuthReq(val invocationJson: String) : NotificationWsRequest("auth")

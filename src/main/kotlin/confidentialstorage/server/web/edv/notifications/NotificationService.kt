@@ -9,7 +9,7 @@ import confidentialstorage.common.utils.JsonUtils.klaxon
 import org.eclipse.jetty.websocket.api.Session
 import kotlin.reflect.KClass
 
-object NotificationManager {
+object NotificationService {
     @JvmInline
     value class EdvId(val id: String)
 
