@@ -1,4 +1,3 @@
-import confidentialstorage.client.console.ConsoleInterfaceManager
 import confidentialstorage.client.service.ClientService
 import confidentialstorage.common.persistence.encryption.JWEEncryption
 import confidentialstorage.server.Webserver
@@ -72,7 +71,7 @@ class FullTest : StringSpec({
     "Enable notification channel" {
         clientService.run {
             edvService.notificationsConnect(edvId) { event ->
-                ConsoleInterfaceManager.out("Received notification from EDV $edvId: Document ${event.documentId} was ${event.operation.name} by ${event.invoker}.")
+                println("Received notification from EDV $edvId: Document ${event.documentId} was ${event.operation.name} by ${event.invoker}.")
             }
         }
     }

@@ -32,7 +32,7 @@ fun sendDocumentRetrieval(edvId: String, documentId: String, baseUrl: String, zc
 
     val client = ApiUtils.getClient("documents", invocationJson)
     return runBlocking {
-        client.get<String>("$baseUrl/edvs/$edvId/docs/$documentId")
+        client.get("$baseUrl/edvs/$edvId/docs/$documentId")
     }
 }
 
@@ -142,14 +142,10 @@ fun main() {
     requests[reqId] = req
 
     println("Data request $reqId:")
-    //println(req)
 
     val json = Klaxon().toJsonString(req)
 
     val signed = JwtService.getService().sign(keyId.id, json)
 
-    // println(JwtService.getService().verify(signed))
-
     println("JWS: $signed")
-
 }
