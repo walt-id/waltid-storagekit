@@ -15,7 +15,7 @@ data class DocumentCreationRequest(
     val index: String
 )
 
-data class DocumentCreationRequest2(
+data class SpecDocumentCreationRequest(
     val id: String, // urn:uuid:94684128-c42c-4b28-adb0-aec77bf76044
     val sequence: Int, // 0
     val jwe: Jwe
