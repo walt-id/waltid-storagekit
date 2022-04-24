@@ -1,13 +1,12 @@
-# Confidential Storage
+# walt.id Storage Kit
 
-Based on the [DIF specification](https://identity.foundation/confidential-storage/) the **Confidential Storage** by **walt.id** is a secure data storage solution, allowing you to interface with
-**Encrypted Data Vaults** easily.
+Based on the [DIF specification](https://identity.foundation/confidential-storage/) the **Storage Kit** by **walt.id** is a secure data confidential storage solution, allowing you to interface with **Encrypted Data Vaults** easily.
 
 The system is scoped into:
 
-- **Confidential Storage Server (remote node)**: Hosting EDVs
-- **Confidential Storage Client (local)**: Interfacing with remote EDVs
-- **Service wrapper**: Easily access data of your clients directly in their EDVs
+- **Storage Kit Server (_Provider_)**: Hosting EDVs
+- **Storage Kit Client (_Client_)**: Interfacing with remote EDVs
+- **Service wrapper (_Service_)**: Easily access data of your clients directly in their EDVs
 
 The library is written in **Kotlin/Java** and can be directly integrated as Maven/Gradle dependency.  
 soon: Alternatively the library or the additional Docker container can be run as RESTful webservice.

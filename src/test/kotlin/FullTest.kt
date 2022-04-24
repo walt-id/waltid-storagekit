@@ -1,6 +1,6 @@
-import confidentialstorage.client.service.ClientService
-import confidentialstorage.common.persistence.encryption.JWEEncryption
-import confidentialstorage.server.Webserver
+import id.walt.storagekit.client.service.ClientService
+import id.walt.storagekit.common.persistence.encryption.JWEEncryption
+import id.walt.storagekit.server.Webserver
 import id.walt.servicematrix.ServiceMatrix
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldHaveAtLeastSize
