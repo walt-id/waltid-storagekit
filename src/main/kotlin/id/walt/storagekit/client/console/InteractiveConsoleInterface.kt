@@ -181,7 +181,7 @@ object CommandLineInterface {
                 |Client options:
                 |  - help/?    - Show this help
                 |  - history   - Show command history
-                |  - exit/quit - Quit the Confidential Storage Interactive Console Interface
+                |  - exit/quit - Quit the Storage Kit Interactive Console Interface
                 
             """.trimMargin()
     )

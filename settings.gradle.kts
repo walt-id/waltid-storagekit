@@ -1,2 +1,2 @@
-rootProject.name = "ConfidentialStorage"
+rootProject.name = "waltid-storagekit"
 

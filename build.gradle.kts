@@ -7,7 +7,7 @@ plugins {
 
 }
 
-group = "confidentialstorage"
+group = "id.walt"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -105,7 +105,7 @@ tasks {
 }
 
 application {
-    mainClass.set(System.getProperty("exec.mainClass") ?: "confidentialstorage.server.WebserverKt")
+    mainClass.set(System.getProperty("exec.mainClass") ?: "id.walt.storagekit.server.WebserverKt")
 }
 
 tasks.named<JavaExec>("run") {

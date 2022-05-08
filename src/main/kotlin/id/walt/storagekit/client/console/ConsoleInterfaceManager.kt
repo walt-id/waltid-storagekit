@@ -18,7 +18,7 @@ object ConsoleInterfaceManager {
     val parser: Parser? = null
 
     val reader: LineReader = LineReaderBuilder.builder()
-        .appName("Confidential Storage")
+        .appName("walt.id Storage Kit")
         .terminal(terminal)
         .completer(completer)
         .parser(parser)

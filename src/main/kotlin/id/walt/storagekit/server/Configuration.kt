@@ -19,8 +19,8 @@ import kotlinx.serialization.Serializable
 data class ServerConfiguration(
     val host: String = "http://localhost",
     val port: Int = 7000,
-    val name: String = "Confidential Storage",
-    val description: String = "Serverside backend for the diploma project Confidential Storage",
+    val name: String = "Storage Kit",
+    val description: String = "Description of this walt.id Storage Kit instance",
     val maxChunkSize: Int = 1_000_000,
     val contact: ContactInformation = ContactInformation(
         name = "Client: SSI Fabric GmbH",
@@ -57,11 +57,11 @@ object Configuration {
                         version = "1.0"
                     }
                     servers = listOf(
-                        //Server().description("Walt.ID").url("https://confidential-storage.walt.id"),
+                        //Server().description("Walt.ID").url("https://storage-kit.walt.id"),
                         Server().description("Local testing server").url(serverConfiguration.url),
                     )
                     externalDocs {
-                        description = "Confidential Storage Docs"
+                        description = "Storage Kit Docs"
                         url = "https://docs.walt.id/"
                     }
 
