@@ -1,10 +1,10 @@
 plugins {
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version "1.6.21"
     kotlin("plugin.serialization") version "1.6.10"
     java
     `java-library`
     application
-
+    `maven-publish`
 }
 
 group = "id.walt"
@@ -28,34 +28,34 @@ dependencies {
     // Crypto
     // implementation("com.cossacklabs.com:themis:0.13.1")
     // implementation("com.cossacklabs.com:java-themis:0.13.1")
-    implementation("com.nimbusds:nimbus-jose-jwt:9.21")
+    implementation("com.nimbusds:nimbus-jose-jwt:9.22")
     implementation("org.bouncycastle:bcprov-jdk15on:1.70")
 
     // -- WALT.ID SSI KIT --
-    implementation("id.walt:waltid-ssi-kit:1.7-SNAPSHOT")
-    implementation("id.walt.servicematrix:WaltID-ServiceMatrix:1.1.0")
-    implementation("id.walt:waltid-ssikit-vclib:1.15.0")
+    implementation("id.walt:waltid-ssi-kit:1.9.1-SNAPSHOT")
+    implementation("id.walt.servicematrix:WaltID-ServiceMatrix:1.1.1")
+    implementation("id.walt:waltid-ssikit-vclib:1.18.1-SNAPSHOT")
 
     // Web
-    implementation("io.javalin:javalin-bundle:4.3.0")
+    implementation("io.javalin:javalin-bundle:4.5.0")
 
     // JSON
-    implementation("com.beust:klaxon:5.5")
+    implementation("com.beust:klaxon:5.6")
 
     // Logging
     //implementation("org.slf4j:slf4j-simple:1.8.0-beta4")
     implementation("org.slf4j:slf4j-simple:2.0.0-alpha6")
 
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
 
 
     // Testing
-    testImplementation("io.kotest:kotest-runner-junit5:5.1.0")
-    testImplementation("io.kotest:kotest-assertions-core:5.1.0")
-    testImplementation("io.kotest:kotest-assertions-json:5.1.0")
+    testImplementation("io.kotest:kotest-runner-junit5:5.3.0")
+    testImplementation("io.kotest:kotest-assertions-core:5.3.0")
+    testImplementation("io.kotest:kotest-assertions-json:5.3.0")
 
     // CLI
     //implementation("com.github.ajalt.clikt:clikt:3.3.0")
@@ -65,14 +65,16 @@ dependencies {
     implementation("org.jline:jline-terminal:3.21.0")
 
     // Http
-    implementation("io.ktor:ktor-client-core:1.6.7")
-    implementation("io.ktor:ktor-client-cio:1.6.7")
-    implementation("io.ktor:ktor-client-auth:1.6.7")
-    implementation("io.ktor:ktor-client-logging:1.6.7")
+    implementation("io.ktor:ktor-client-core:2.0.1")
+    implementation("io.ktor:ktor-client-content-negotiation:2.0.1")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.0.1")
+    implementation("io.ktor:ktor-client-cio:2.0.1")
+    implementation("io.ktor:ktor-client-logging:2.0.1")
+    implementation("io.ktor:ktor-client-auth:2.0.1")
 
 
     // Serialization
-    implementation("io.ktor:ktor-client-serialization:1.6.7")
+    implementation("io.ktor:ktor-client-serialization:2.0.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 
 }
@@ -105,9 +107,37 @@ tasks {
 }
 
 application {
-    mainClass.set(System.getProperty("exec.mainClass") ?: "id.walt.storagekit.server.WebserverKt")
+    mainClass.set(System.getProperty("exec.mainClass") ?: "id.walt.storagekit.main.MainKt")
 }
 
 tasks.named<JavaExec>("run") {
     standardInput = System.`in`
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            pom {
+                name.set("walt.id Storage Kit")
+                description.set("Kotlin/Java library for confidential storage functionality.")
+                url.set("https://walt.id")
+            }
+            from(components["java"])
+        }
+    }
+
+    repositories {
+        maven {
+            url = uri("https://maven.walt.id/repository/waltid-storagekit/")
+            val usernameFile = File("secret_maven_username.txt")
+            val passwordFile = File("secret_maven_password.txt")
+            val secretMavenUsername = System.getenv()["MAVEN_USERNAME"] ?: if (usernameFile.isFile) { usernameFile.readLines()[0] } else { "" }
+            val secretMavenPassword = System.getenv()["MAVEN_PASSWORD"] ?: if (passwordFile.isFile) { passwordFile.readLines()[0] } else { "" }
+
+            credentials {
+                username = secretMavenUsername
+                password = secretMavenPassword
+            }
+        }
+    }
 }

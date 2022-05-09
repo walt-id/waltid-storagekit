@@ -16,7 +16,9 @@ import id.walt.storagekit.common.model.chunking.EncryptedResourceStructure
 import id.walt.storagekit.common.model.encryptedsearch.SearchDocumentReq
 import id.walt.storagekit.common.model.encryptedsearch.SearchDocumentRes
 import id.walt.storagekit.common.persistence.encryption.JWEEncryption
+import io.ktor.client.call.*
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
 import org.bitcoinj.core.Base58
@@ -66,10 +68,10 @@ class ClientRemoteService(
         val client = getClient("", invocationJson)
 
         return runBlocking {
-            client.post<SearchDocumentRes>("$baseUrl/edvs/$edvId/docs/search") {
+            client.post("$baseUrl/edvs/$edvId/docs/search") {
                 contentType(ContentType.Application.Json)
-                body = SearchDocumentReq(hashedKeyword, transformedKey)
-            }
+                setBody(SearchDocumentReq(hashedKeyword, transformedKey))
+            }.body()
         }
     }
 
@@ -84,7 +86,7 @@ class ClientRemoteService(
 
         val client = getClient("documents", invocationJson)
         return runBlocking {
-            client.get<String>("$baseUrl/edvs/$edvId/docs/$documentId")
+            client.get("$baseUrl/edvs/$edvId/docs/$documentId").bodyAsText()
         }
     }
 
@@ -163,7 +165,7 @@ class ClientRemoteService(
         val client = getClient("documents", invocationJson)
 
         runBlocking {
-            client.delete<String>("$baseUrl/edvs/$edvId/docs/$documentId")
+            client.delete("$baseUrl/edvs/$edvId/docs/$documentId").bodyAsText()
         }
     }
 

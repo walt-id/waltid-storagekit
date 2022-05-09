@@ -10,11 +10,8 @@ import id.walt.storagekit.common.DataResponse
 import id.walt.storagekit.common.authorization.ZCapManager
 import id.walt.storagekit.common.authorization.caveat.Caveat
 import id.walt.services.jwt.JwtService
+import id.walt.storagekit.client.service.remote.ApiUtils
 import io.ipfs.multibase.Base58
-import io.ktor.client.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
@@ -49,11 +46,7 @@ class ClientDataRequestService(private val session: Session, masterKey: ByteArra
         val edv = session.edvs[edvId]!!
         val docId = dataRequest.preferredDataType
 
-        val client = HttpClient(CIO) {
-            install(JsonFeature) {
-                serializer = KotlinxSerializer(kotlinx.serialization.json.Json { ignoreUnknownKeys = true })
-            }
-        }
+        val client = ApiUtils.createConfiguredClient()
 
         val fileKey = Base58.encode(indexManager.getFromIndex(edv.edvId, docId))
         // TODO
@@ -63,9 +56,9 @@ class ClientDataRequestService(private val session: Session, masterKey: ByteArra
         ConsoleInterfaceManager.out("Transmitting acceptance respones...")
 
         runBlocking {
-            client.post<Unit>(dataRequest.responseUrl) {
+            client.post(dataRequest.responseUrl) {
                 contentType(ContentType.Application.Json)
-                body = resp
+                setBody(resp)
             }
         }
     }

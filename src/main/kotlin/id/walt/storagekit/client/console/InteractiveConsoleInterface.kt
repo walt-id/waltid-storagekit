@@ -540,7 +540,8 @@ object CommandLineInterface {
     }
 
     private fun enterMasterPassphrase(prompt: String): ByteArray =
-        (System.console()?.readPassword(prompt)?.toString()?.toByteArray() ?: reader.readLine(prompt, '*').toByteArray())
+        // (System.console()?.readPassword(prompt)?.toString()?.toByteArray() // does not work in IntelliJ terminal
+            /*?: */ reader.readLine(prompt).toByteArray() /*) at least that works everywhere */
 }
 
 fun main(args: Array<String>) {

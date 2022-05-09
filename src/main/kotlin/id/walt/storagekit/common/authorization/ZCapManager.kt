@@ -189,7 +189,7 @@ object ZCapManager {
     fun getDidVerification(did: String): String {
         //if (!DidService.listDids().contains(did))
         //    DidService.importDid(did)
-        val didObj = DidService.loadOrResolveAnyDid(did)
+        /*val didObj = */ DidService.loadOrResolveAnyDid(did)
 
         return DidService.getAuthenticationMethods(did)!!.first()
     }
@@ -269,10 +269,10 @@ object ZCapManager {
         if (chain.keys.first().proof!!.proofPurpose == "capabilityInvocation") {
             val invocation = chain.keys.first()
 
-            collectedCaveats.forEachIndexed { index, caveat ->
+            collectedCaveats.forEachIndexed { index2, caveat ->
                 val caveatCheck = caveat.verify(invocation)
 
-                println("Caveat check ${index + 1}/${collectedCaveats.size}: ${caveat.type} - $caveatCheck")
+                println("Caveat check ${index2 + 1}/${collectedCaveats.size}: ${caveat.type} - $caveatCheck")
                 check(caveatCheck)
             }
         }

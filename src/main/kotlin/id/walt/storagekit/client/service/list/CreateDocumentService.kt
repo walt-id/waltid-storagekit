@@ -15,7 +15,7 @@ import id.walt.storagekit.common.hashindexes.Indexer
 import id.walt.storagekit.common.model.chunking.EncryptedResourceStructure
 import id.walt.storagekit.common.persistence.encryption.JWEEncryption
 import id.walt.storagekit.server.utils.IdentifierUtils
-import io.ktor.client.features.*
+import io.ktor.client.plugins.*
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking

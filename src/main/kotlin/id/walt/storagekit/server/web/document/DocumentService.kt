@@ -56,7 +56,7 @@ object DocumentService {
     fun deleteDocument(edvId: String, docId: String): Boolean = hkvs.deleteDocument(edvId, docId)
 
     fun searchDocument(req: SearchDocumentReq, edvId: String): SearchDocumentRes {
-        val key = Base64.getDecoder().decode(req.indexKey)
+        // val key = Base64.getDecoder().decode(req.indexKey)
         val indexes = Path.of("edvs", edvId, "documents")
             .listDirectoryEntries()
             .filter { it.toString().endsWith("-search-index") }

@@ -15,6 +15,7 @@ import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.*
 import io.javalin.core.util.RouteOverviewPlugin
 import io.javalin.plugin.openapi.dsl.documented
+import io.javalin.plugin.openapi.utils.OpenApiVersionUtil
 import kotlin.io.path.Path
 import kotlin.io.path.readText
 import kotlin.io.path.writeText
@@ -22,6 +23,7 @@ import kotlin.io.path.writeText
 class Webserver {
 
     private val javalin: Javalin = Javalin.create {
+        OpenApiVersionUtil.logWarnings = false
         it.apply {
             registerPlugin(RouteOverviewPlugin("/api-routes"))
             registerPlugin(Configuration.openApiPlugin)

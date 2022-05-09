@@ -1,21 +1,30 @@
 package id.walt.storagekit.client.service.remote
 
-import id.walt.storagekit.client.clientmodels.SessionManager
 import id.walt.storagekit.common.HashUtils
 import id.walt.storagekit.common.authorization.ZCapManager
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.features.auth.*
-import io.ktor.client.features.auth.providers.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
+import io.ktor.client.plugins.auth.*
+import io.ktor.client.plugins.auth.providers.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.json.Json
 
 object ApiUtils {
 
-    fun getClient(username: String = "", invocationJson: String? = null) = HttpClient(CIO) {
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(kotlinx.serialization.json.Json { ignoreUnknownKeys = true })
+    fun createConfiguredClient(
+        block: (HttpClientConfig<CIOEngineConfig>.() -> Unit)? = null
+    ): HttpClient = HttpClient(CIO) {
+        install(ContentNegotiation) {
+            json(Json {
+                ignoreUnknownKeys = true
+            })
         }
+
+        block?.invoke(this)
+    }
+
+    fun getClient(username: String = "", invocationJson: String? = null) = createConfiguredClient {
         //install(Logging)
 
         if (invocationJson != null)
@@ -30,7 +39,11 @@ object ApiUtils {
             }
     }
 
-    fun createSimpleInvocation(session: id.walt.storagekit.client.clientmodels.SessionManager.Session, edvId: String, action: String) =
+    fun createSimpleInvocation(
+        session: id.walt.storagekit.client.clientmodels.SessionManager.Session,
+        edvId: String,
+        action: String
+    ) =
         ZCapManager.createSimpleInvocation(
             delegationZcapJson = session.edvs[edvId]!!.rootDelegation,
             invokerDid = session.did,

@@ -19,6 +19,7 @@ import id.walt.services.keystore.KeyType
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.post
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import kotlinx.coroutines.runBlocking
 import org.bitcoinj.core.Base58
 import java.util.*
@@ -32,7 +33,7 @@ fun sendDocumentRetrieval(edvId: String, documentId: String, baseUrl: String, zc
 
     val client = ApiUtils.getClient("documents", invocationJson)
     return runBlocking {
-        client.get("$baseUrl/edvs/$edvId/docs/$documentId")
+        client.get("$baseUrl/edvs/$edvId/docs/$documentId").bodyAsText()
     }
 }
 

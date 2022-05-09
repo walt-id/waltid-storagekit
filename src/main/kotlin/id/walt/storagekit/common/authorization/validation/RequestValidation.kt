@@ -64,9 +64,9 @@ object RequestValidation {
     }
 
     private fun checkSpecialCharacters(input: String) {
-        val p: Pattern = Pattern.compile("[^a-z0-9 -]", Pattern.CASE_INSENSITIVE)
-        val m: Matcher = p.matcher(input)
-        val b: Boolean = m.find()
+        val pattern: Pattern = Pattern.compile("[^a-z0-9 -]", Pattern.CASE_INSENSITIVE)
+        val matcher: Matcher = pattern.matcher(input)
+        val patternMatched: Boolean = matcher.find()
 
         // if (b) throw IllegalArgumentException("Special characters are not allowed!")
     }

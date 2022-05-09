@@ -32,3 +32,5 @@ indexes
 master
 sessions
 keystore
+secret_maven_password.txt
+secret_maven_username.txt

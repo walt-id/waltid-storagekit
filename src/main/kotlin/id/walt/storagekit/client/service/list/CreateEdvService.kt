@@ -1,10 +1,10 @@
 package id.walt.storagekit.client.service.list
 
-import id.walt.storagekit.client.clientmodels.SessionManager
 import id.walt.storagekit.client.service.remote.ApiUtils
 import id.walt.storagekit.common.model.edv.EdvCreatedResponse
 import id.walt.storagekit.common.model.edv.EdvCreationRequest
 import id.walt.storagekit.common.persistence.encryption.JWEEncryption
+import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
@@ -23,14 +23,19 @@ object CreateEdvService {
         val indexKey = Base58.encode(JWEEncryption.generateDirectKey())
 
         return runBlocking {
-            val edvResponse = client.post<EdvCreatedResponse>("$baseUrl/edvs") {
+            val edvResponse = client.post("$baseUrl/edvs") {
                 contentType(ContentType.Application.Json)
-                body = EdvCreationRequest(sequence, controller, indexKey)
-            }
+                setBody(EdvCreationRequest(sequence, controller, indexKey))
+            }.body<EdvCreatedResponse>()
 
             sessionManager.addEdvToSession(
                 sessionId,
-                id.walt.storagekit.client.clientmodels.SessionManager.SessionEdv(edvResponse.edvId, baseUrl, edvResponse.rootDelegation, indexKey)
+                id.walt.storagekit.client.clientmodels.SessionManager.SessionEdv(
+                    edvId = edvResponse.edvId,
+                    serverUrl = baseUrl,
+                    rootDelegation = edvResponse.rootDelegation,
+                    indexKey = indexKey
+                )
             )
 
             edvResponse
