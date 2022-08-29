@@ -1,6 +1,25 @@
-# walt.id Storage Kit
+<div align="center">
+ <h1>Storage Kit</h1>
+ <span>by </span><a href="https://walt.id">walt.id</a>
+ <p>Enhance your app with zero trust storage and privacy-preserving data sharing<p>
+ <a href="https://walt.id/community">
+<img src="https://img.shields.io/badge/Join-The Community-blue.svg?style=flat" alt="Join community!" />
+</a>
+<a href="https://twitter.com/intent/follow?screen_name=walt_id">
+<img src="https://img.shields.io/twitter/follow/walt_id.svg?label=Follow%20@walt_id" alt="Follow @walt_id" />
+</a>
+</div>
 
-Based on the [DIF specification](https://identity.foundation/confidential-storage/) the **Storage Kit** by **walt.id** is a secure data confidential storage solution, allowing you to interface with **Encrypted Data Vaults** easily.
+## Getting Started
+
+- [CLI | Command Line Interface](https://docs.walt.id/v/storage-kit/getting-started/cli-command-line-interface) - Try out the functions of the Storage Kit locally.
+- [REST Api](https://docs.walt.id/v/storage-kit/getting-started/rest-apis) - Use the functions of the Storage Kit via an REST api.
+- [Maven/Gradle Dependency](https://docs.walt.id/v/storage-kit/getting-started/dependency-jvm) - Use the functions of the Storage Kit directly in a Kotlin/Java project.
+
+Checkout the [Official Documentation](https://docs.walt.id/v/storage-kit/storage-kit/ssi-kit-or-basics), to dive deeper into the architecture and configuration options available.
+
+## What is the Storage Kit?
+Written in Kotlin and based on the [DIF specification](https://identity.foundation/confidential-storage/) the **Storage Kit** is a secure data confidential storage solution, allowing you to interface with **Encrypted Data Vaults** easily.
 
 The system is scoped into:
 
@@ -8,10 +27,10 @@ The system is scoped into:
 - **Storage Kit Client (_Client_)**: Interfacing with remote EDVs
 - **Service wrapper (_Service_)**: Easily access data of your clients directly in their EDVs
 
-The library is written in **Kotlin/Java** and can be directly integrated as Maven/Gradle dependency.  
+
 soon: Alternatively the library or the additional Docker container can be run as RESTful webservice.
 
-## Functionality
+### Functionality
 
 The Confidential Storage functions are in the scope of:
 
@@ -131,3 +150,12 @@ clientService.dataRequestService.acceptDataRequest(dataRequest, edvId, delegatio
 
 out("Data request accepted!")
 ```
+
+## Join the community
+
+* Connect and get the latest updates: [Discord](https://discord.com/invite/zUnxncExF5) | [Newsletter](https://walt.id/newsletter) | [YouTube](https://www.youtube.com/channel/UCXfOzrv3PIvmur_CmwwmdLA) | [Twitter](https://mobile.twitter.com/walt_id)
+* Get help, request features and report bugs: [GitHub Discussions](https://github.com/walt-id/.github/discussions)
+
+## License
+
+Licensed under the [Apache License, Version 2.0](https://github.com/walt-id/waltid-storage-kit/blob/master/LICENSE)
