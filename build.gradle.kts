@@ -28,34 +28,34 @@ dependencies {
     // Crypto
     // implementation("com.cossacklabs.com:themis:0.13.1")
     // implementation("com.cossacklabs.com:java-themis:0.13.1")
-    implementation("com.nimbusds:nimbus-jose-jwt:9.22")
+    implementation("com.nimbusds:nimbus-jose-jwt:9.25.1")
     implementation("org.bouncycastle:bcprov-jdk15on:1.70")
 
     // -- WALT.ID SSI KIT --
-    implementation("id.walt:waltid-ssi-kit:1.9.1-SNAPSHOT")
+    implementation("id.walt:waltid-ssi-kit:1.13.0-SNAPSHOT")
     implementation("id.walt.servicematrix:WaltID-ServiceMatrix:1.1.1")
     implementation("id.walt:waltid-ssikit-vclib:1.18.1-SNAPSHOT")
 
     // Web
-    implementation("io.javalin:javalin-bundle:4.5.0")
+    implementation("io.javalin:javalin-bundle:4.6.4")
 
     // JSON
     implementation("com.beust:klaxon:5.6")
 
     // Logging
     //implementation("org.slf4j:slf4j-simple:1.8.0-beta4")
-    implementation("org.slf4j:slf4j-simple:2.0.0-alpha6")
+    implementation("org.slf4j:slf4j-simple:2.0.1")
 
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.10")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
 
     // Testing
-    testImplementation("io.kotest:kotest-runner-junit5:5.3.0")
-    testImplementation("io.kotest:kotest-assertions-core:5.3.0")
-    testImplementation("io.kotest:kotest-assertions-json:5.3.0")
+    testImplementation("io.kotest:kotest-runner-junit5:5.4.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.4.2")
+    testImplementation("io.kotest:kotest-assertions-json:5.4.2")
 
     // CLI
     //implementation("com.github.ajalt.clikt:clikt:3.3.0")
@@ -65,17 +65,17 @@ dependencies {
     implementation("org.jline:jline-terminal:3.21.0")
 
     // Http
-    implementation("io.ktor:ktor-client-core:2.0.1")
-    implementation("io.ktor:ktor-client-content-negotiation:2.0.1")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.0.1")
-    implementation("io.ktor:ktor-client-cio:2.0.1")
-    implementation("io.ktor:ktor-client-logging:2.0.1")
-    implementation("io.ktor:ktor-client-auth:2.0.1")
+    implementation("io.ktor:ktor-client-core:2.1.1")
+    implementation("io.ktor:ktor-client-content-negotiation:2.1.1")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.1.1")
+    implementation("io.ktor:ktor-client-cio:2.1.1")
+    implementation("io.ktor:ktor-client-logging:2.1.1")
+    implementation("io.ktor:ktor-client-auth:2.1.1")
 
 
     // Serialization
-    implementation("io.ktor:ktor-client-serialization:2.0.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    implementation("io.ktor:ktor-client-serialization:2.1.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
 
 }
 
@@ -129,10 +129,14 @@ publishing {
     repositories {
         maven {
             url = uri("https://maven.walt.id/repository/waltid-storagekit/")
+            val envUsername = System.getenv("MAVEN_USERNAME")
+            val envPassword = System.getenv("MAVEN_PASSWORD")
+
             val usernameFile = File("secret_maven_username.txt")
             val passwordFile = File("secret_maven_password.txt")
-            val secretMavenUsername = System.getenv()["MAVEN_USERNAME"] ?: if (usernameFile.isFile) { usernameFile.readLines()[0] } else { "" }
-            val secretMavenPassword = System.getenv()["MAVEN_PASSWORD"] ?: if (passwordFile.isFile) { passwordFile.readLines()[0] } else { "" }
+
+            val secretMavenUsername = envUsername ?: usernameFile.let { if (it.isFile) it.readLines().first() else "" }
+            val secretMavenPassword = envPassword ?: passwordFile.let { if (it.isFile) it.readLines().first() else "" }
 
             credentials {
                 username = secretMavenUsername
