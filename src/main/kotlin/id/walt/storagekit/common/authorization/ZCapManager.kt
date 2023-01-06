@@ -62,7 +62,7 @@ object ZCapManager {
         val resolvedDid = DidService.resolve(issuerDid)
         if (keyStore.getKeyId(resolvedDid.id) == null) {
             println("importing key...")
-            DidService.importDidAndKey(resolvedDid.id)
+            DidService.importDidAndKeys(resolvedDid.id)
         }
 
         val publicKey = keyStore.load(resolvedDid.id)
@@ -191,7 +191,7 @@ object ZCapManager {
         //    DidService.importDid(did)
         /*val didObj = */ DidService.loadOrResolveAnyDid(did)
 
-        return DidService.getAuthenticationMethods(did)!!.first()
+        return DidService.getAuthenticationMethods(did)!!.first().id
     }
 
     fun rawSignatureChainVerification(
@@ -241,7 +241,7 @@ object ZCapManager {
                 println("EDV BASE START")
                 println("EDV DID $edvDid - ROOT OF TRUST")
             } else {
-                val askingKeys = DidService.getAuthenticationMethods(zcap.proof.creator!!)!!.first()
+                val askingKeys = DidService.getAuthenticationMethods(zcap.proof.creator!!)!!.first().id
                 val allowedKeys = reverseChain[index - 1].proof!!.verificationMethod
                 val grantedBy = zcap.parentCapability!!.proof!!.creator
 
@@ -310,7 +310,7 @@ object ZCapManager {
             proofType = ProofType.LD_PROOF,
             domain = null,
             nonce = null,
-            issuerVerificationMethod = DidService.getAuthenticationMethods(invokerDid)!!.first()
+            issuerVerificationMethod = DidService.getAuthenticationMethods(invokerDid)!!.first().id
         )
 
         return sign(zCapJson, conf)
