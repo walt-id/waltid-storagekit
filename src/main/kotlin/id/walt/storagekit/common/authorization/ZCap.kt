@@ -8,7 +8,7 @@ import java.time.Instant
 data class ZCap(
     @JsonProperty("@context")
     @Json(name = "@context")
-    val context: List<String> = listOf("https://w3id.org/security/v2"),
+    val context: List<String> = listOf(/*"https://w3id.org/security/v2"*/),
     val id: String, // urn:uuid:ad86cb2c-e9db-434a-beae-71b82120a8a4,
     @Json(serializeNull = false) val action: String? = null,
     /** Either EDV-ID / Document-ID, or ZCap */
