@@ -128,7 +128,7 @@ publishing {
 
     repositories {
         maven {
-            url = uri("https://maven.walt.id/repository/waltid-storagekit/")
+            url = uri("https://maven.walt.id/repository/waltid/")
             val envUsername = System.getenv("MAVEN_USERNAME")
             val envPassword = System.getenv("MAVEN_PASSWORD")
 
