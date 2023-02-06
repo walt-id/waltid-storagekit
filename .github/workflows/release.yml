@@ -38,13 +38,6 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
         with:
           arguments: build publish --no-daemon
-      - name: Docker build and push
-        uses: philpotisk/github-action-docker-build-push@master
-        env:
-          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-          DOCKER_FILE: Dockerfile
-          CONTAINER_TAG: waltid/storagekit:latest
       - name: Changelog
         uses: ardalanamini/auto-changelog@v3
         id: changelog
